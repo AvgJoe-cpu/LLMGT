@@ -10,12 +10,14 @@ dependencies = [
 
 [project.scripts]
 games = "llmgt.data.games:main"
+prompts = "llmgt.prompts.prompts:main"
+#inference = "llmgt.inference.inference:main"
+#inference-preview = "llmgt.inference:preview"
+#inference-model = "llmgt.inference:model_entrypoint"
 
-prompts = "llmgt.inference.prompts.prompts:main"
+[tool.setuptools]
+packages = { find = { where = ["src"] } }
 
-inference = "llmgt.inference.inference:main"
-inference-preview = "llmgt.inference:preview"
-inference-model = "llmgt.inference:model_entrypoint"
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools.package-data]
+# Optionally include templates, configs, etc.
+"llmgt" = ["**/*.json", "**/*.txt", "**/*.md"]

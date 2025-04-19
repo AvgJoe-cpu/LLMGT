@@ -8,7 +8,7 @@ def load_experiment_config(name: str = "experiments_det.json") -> dict[str, dict
     Loads and validates a dictionary of experiment configs from CONFIG/experimental_config/.
 
     Parameters:
-        name (str): The filename of the config (default: experiments_det.json)
+        name (str): The filename of the prompt_config (default: experiments_det.json)
 
     Returns:
         dict[str, dict]: A dictionary mapping experiment names to configs.
@@ -16,13 +16,13 @@ def load_experiment_config(name: str = "experiments_det.json") -> dict[str, dict
     path = get_experimental_config_path(name)
 
     if not path.exists():
-        raise FileNotFoundError(f"Could not find experiment config at: {path}")
+        raise FileNotFoundError(f"Could not find experiment prompt_config at: {path}")
 
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     if not isinstance(data, dict):
-        raise ValueError("Expected top-level config to be a dict of named experiments.")
+        raise ValueError("Expected top-level prompt_config to be a dict of named experiments.")
 
     for name, cfg in data.items():
         required_keys = ["json_path", "seed", "generation_config", "batch_size", "message_keys"]

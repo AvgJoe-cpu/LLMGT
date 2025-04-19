@@ -1,4 +1,3 @@
-from llmgt.utils.paths import get_template_dir, get_cot_dir, get_prompts_config
 from mako.lookup import TemplateLookup
 import json
 

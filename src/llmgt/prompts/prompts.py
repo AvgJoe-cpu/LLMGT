@@ -1,46 +1,52 @@
+from llmgt.prompts.build_prompts import build_prompts_factory
+from llmgt.utils import get_project_root, get_data_path, get_stage_path
+
 from datasets import Dataset
-import argparse
 import json
-from .build_prompts import build_prompts_factory
-from llmgt.utils.paths import get_sampled_games_file, get_sampled_prompts_dir
-from llmgt.utils.paths import *
+from pathlib import Path
+from typing import Callable
+
+
+def load_and_transform_dataset(input_path: Path, prompt_fn: Callable) -> Dataset:
+    ds = Dataset.from_json(str(input_path))
+    return ds.map(prompt_fn)
+
+
+def load_prompt_config_and_dirs(
+    config_name: str,
+    style: str,
+    cot_style: str = "COT",
+    config_dir: str = "prompt_config"
+) -> tuple[dict, Path, Path]:
+
+    config_path = get_data_path(config_dir, config_name)
+    if not config_path.exists():
+        raise FileNotFoundError(f"Prompt config not found: {config_path}")
+
+    cfg = json.load(open(config_path, encoding="utf-8"))
+    return cfg, get_data_path("templates", style), get_data_path("templates", cot_style)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Build and export prompt-structured data.")
-    parser.add_argument("file", type=str, nargs="?", default="sampled_games_10_batches_variant.json")
-    parser.add_argument("--config", type=str, default="prompts_one_shot.json")
-    parser.add_argument("--style", type=str, default="DA", help="Prompt style subfolder (e.g. DA or COT)")
+    config_name = "prompts.json"
+    style = "DA"
+    cot_style = "cot"
+    config_dir = "prompt_config"
 
-    args = parser.parse_args()
+    config, template_dir, cot_dir = load_prompt_config_and_dirs(
+        config_name=config_name,
+        style=style,
+        cot_style=cot_style,
+        config_dir=config_dir
+    )
 
-    input_path = get_sampled_games_file(args.file)
-    if not input_path.exists():
-        raise FileNotFoundError(f"File not found: {input_path}")
+    build_prompts = build_prompts_factory(config, template_dir, cot_dir)
+    input_path = get_stage_path("games", "sampled_games_10_batches_variant.json")
+    ds = load_and_transform_dataset(input_path, build_prompts)
+    for row in ds:
+        print(json.dumps(row, indent=2))
+        break
 
-    config_path = get_prompts_config(args.config)
-    with open(config_path, "r", encoding="utf-8") as f:
-        prompt_config = json.load(f)
-
-    # Paths based on style
-    template_dir = get_project_root() / "src" / "llmgt" / "inference" / "prompts" / args.style
-    cot_dir = get_project_root() / "src" / "llmgt" / "inference" / "prompts" / "COT"
-
-    prompt_fn = build_prompts_factory(prompt_config, template_dir, cot_dir)
-
-    ds = Dataset.from_json(str(input_path))
-    ds = ds.map(prompt_fn)
-
-    output_dir = get_sampled_prompts_dir()
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    out_name = f"prompts_from_{input_path.stem}.json"
-    output_path = output_dir / out_name
-
-    with open(output_path, "w") as f:
-        json.dump(ds.to_list(), f, indent=2)
-
-    print(f"Prompts exported to: {output_path}")
 
 if __name__ == "__main__":
     main()
