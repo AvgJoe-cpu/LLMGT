@@ -1,0 +1,6 @@
+site_name: llmgt
+nav:
+  - Home: index.md
+  - Games:
+      - Build Games: game_build.md
+      - Game Sampling: game_sample.md
