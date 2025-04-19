@@ -1,9 +1,0 @@
-Evaluation Module
-=================
-
-This module defines tools for validating, scoring, and analyzing LLM predictions from structured games.
-
-.. automodule:: llmgt.evaluation.evaluation
-   :members:
-   :undoc-members:
-   :show-inheritance:

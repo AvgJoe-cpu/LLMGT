@@ -1,6 +1,0 @@
-﻿llmgt.inference.inference.build\_experiment
-===========================================
-
-.. currentmodule:: llmgt.inference.inference
-
-.. autofunction:: build_experiment
