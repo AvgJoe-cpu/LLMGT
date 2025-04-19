@@ -24,3 +24,9 @@ docs/build/
 # === System Files ===
 .DS_Store
 Thumbs.db
+
+# Prevent publishing accidentally copied HTML
+/docs/*.html
+/docs/_modules/
+/docs/_sources/
+/docs/objects.inv

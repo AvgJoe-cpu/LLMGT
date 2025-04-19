@@ -1,11 +1,20 @@
 Inference Module
 ================
 
-The `inference` package coordinates LLM execution, prompt construction, and result collection.
+.. currentmodule:: llmgt.inference.inference
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Inference Submodules
+.. autosummary::
+   :toctree: _autosummary
+   :nosignatures:
 
-   inference_main
-   prompts_index
+   preview
+   build_config
+   build_experiment
+   run_experiment
+   main
+
+.. automodule:: llmgt.inference.inference
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :no-index:
