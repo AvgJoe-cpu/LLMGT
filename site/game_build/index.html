@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Build Games - llmgt</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">llmgt</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Games</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Build Games</a>
+</li>
+                                    
+<li>
+    <a href="../game_sample/" class="dropdown-item">Game Sampling</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../game_sample/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#game-building" class="nav-link">Game Building</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#core-functions" class="nav-link">Core Functions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#configuration" class="nav-link">Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="game-building">Game Building</h1>
+<p>We generate structured 2x2 games for evaluation and experimentation.</p>
+<h2 id="core-functions">Core Functions</h2>
+<hr />
+<h5 id="sample_payoffs"><code>sample_payoffs()</code></h5>
+<p>Samples a list of four random payoff values between 1 and 10.</p>
+<pre><code class="language-python">def sample_payoffs() -&gt; list[int]:
+    return [random.randint(1, 10) for _ in range(4)]
+</code></pre>
+<hr />
+<h5 id="sample_fncondition"><code>sample_fn(condition)</code></h5>
+<p>Samples payoff tuples until a given condition is satisfied.</p>
+<pre><code class="language-python">def sample_fn(condition: Callable[[int, int, int, int], bool]):
+    while True:
+        a = sample_payoffs()
+        if condition(*a):
+            return tuple(a)
+</code></pre>
+<hr />
+<h5 id="cond_p1_dominant_topx1-x2-x3-x4"><code>cond_p1_dominant_top(x1, x2, x3, x4)</code></h5>
+<p>Returns <code>True</code> if Player 1 strictly prefers the top row.</p>
+<pre><code class="language-python">def cond_p1_dominant_top(x1, x2, x3, x4):
+    return x1 &gt; x3 and x2 &gt; x4
+</code></pre>
+<p>Player 1 prefers the top row if: x1 &gt; x3 and x2 &gt; x4</p>
+<hr />
+<h5 id="cond_p1_dominant_botx1-x2-x3-x4"><code>cond_p1_dominant_bot(x1, x2, x3, x4)</code></h5>
+<p>Returns <code>True</code> if Player 1 strictly prefers the bot row.</p>
+<pre><code class="language-python">def cond_p1_dominant_top(x1, x2, x3, x4):
+    return x3 &gt; x1 and x4 &gt; x2
+</code></pre>
+<p>Player 1 prefers the bot row if: x3 &gt; x1 and x4 &gt; x2</p>
+<hr />
+<h5 id="cond_p2_dominant_lefy1-y2-y3-y4"><code>cond_p2_dominant_lef(y1, y2, y3, y4)</code></h5>
+<p>Returns <code>True</code> if Player 2 strictly prefers the left column.</p>
+<pre><code class="language-python">def cond_p2_dominant_left(y1, y2, y3, y4):
+    return y1 &gt; y2 and y3 &gt; y4
+</code></pre>
+<p>Player 2 prefers the left column if: y1 &gt; y2 and y3 &gt; y4</p>
+<hr />
+<h5 id="cond_p2_dominant_righty1-y2-y3-y4"><code>cond_p2_dominant_right(y1, y2, y3, y4)</code></h5>
+<p>Returns <code>True</code> if Player 2 strictly prefers the right column.</p>
+<pre><code class="language-python">def cond_p2_dominant_right(y1, y2, y3, y4):
+    return y2 &gt; y1 and y4 &gt; y1
+</code></pre>
+<p>Player 2 prefers the left column if: y2 &gt; y1 and y4 &gt; y1</p>
+<hr />
+<h2 id="configuration">Configuration</h2>
+<p>The <code>CONFIG_GAMES</code> dictionary defines structural presets for sampling 2x2 games.</p>
+<ul>
+<li>Player dominance conditions</li>
+<li>Structural descriptors</li>
+<li>Expected Nash equilibrium (NE) locations</li>
+</ul>
+<pre><code class="language-python">{
+    &quot;p1_cond&quot;: cond_p1_dominant_top,
+    &quot;p2_cond&quot;: cond_p2_dominant_left,
+    &quot;structure&quot;: {
+        &quot;dominance&quot;: {
+            &quot;p1&quot;: &quot;top&quot;,
+            &quot;p2&quot;: &quot;left&quot;
+        }
+    },
+    &quot;nash_locations&quot;: [&quot;TL&quot;]
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
