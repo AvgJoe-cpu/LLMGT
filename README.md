@@ -27,7 +27,9 @@ We access them through Hugging Face at [`Qwen/Qwen-2_5-*`](https://huggingface.c
 
 Runtime: transformers with quantization via bitsandbytes [Dettmers et al., 2022].
 
+### Implementation
 
+Thin wrapper around Hugging Face pipeline.
 
 
 
