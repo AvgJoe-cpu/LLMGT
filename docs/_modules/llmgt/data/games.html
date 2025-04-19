@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>llmgt.data.games &mdash; llmgt 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            llmgt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Game Construction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../games.html">Games Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../build_games.html">Build Games Module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Inference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../inference.html">Inference Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">llmgt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">llmgt.data.games</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for llmgt.data.games</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">llmgt.utils.paths</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_sampled_games_dir</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.build_games</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="n">SCRIPT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+<span class="c1">####</span>
+<div class="viewcode-block" id="build_labelled_payoffs">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.build_labelled_payoffs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_labelled_payoffs</span><span class="p">(</span><span class="n">p1</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+                           <span class="n">p2</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TL&quot;</span><span class="p">,</span> <span class="s2">&quot;TR&quot;</span><span class="p">,</span> <span class="s2">&quot;BL&quot;</span><span class="p">,</span> <span class="s2">&quot;BR&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">p1</span><span class="p">)),</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">p2</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="build_matrix_fn">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.build_matrix_fn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_matrix_fn</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;TL&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;TR&quot;</span><span class="p">]],[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;BL&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;BR&quot;</span><span class="p">]]]</span></div>
+
+
+<div class="viewcode-block" id="build_combined_matrix_fn">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.build_combined_matrix_fn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_combined_matrix_fn</span><span class="p">(</span><span class="n">mx1</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">],</span> <span class="n">mx2</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">]):</span>
+    <span class="k">return</span> <span class="p">[[[</span><span class="n">mx1</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">],</span> <span class="n">mx2</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span><span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="build_action_fn">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.build_action_fn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_action_fn</span><span class="p">(</span><span class="n">mx1</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">],</span> <span class="n">mx2</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">]):</span>
+    <span class="n">p1_actions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="n">mx1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">&quot;bot&quot;</span><span class="p">:</span> <span class="n">mx1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">p2_actions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">mx2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">mx2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">mx2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">mx2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">p1_actions</span><span class="p">,</span> <span class="n">p2_actions</span></div>
+
+
+
+<div class="viewcode-block" id="extract_gold_labels_fn">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.extract_gold_labels_fn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_gold_labels_fn</span><span class="p">(</span><span class="n">payoffs_p1</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">payoffs_p2</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+    <span class="n">combined_entries</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">payoffs_p1</span><span class="p">[</span><span class="n">label</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">payoffs_p2</span><span class="p">[</span><span class="n">label</span><span class="p">]}</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">payoffs_p1</span>
+    <span class="p">]</span>
+
+    <span class="n">sorted_p1</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">combined_entries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sorted_p2</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">combined_entries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sorted_p1</span><span class="p">,</span> <span class="n">sorted_p2</span></div>
+
+
+
+<div class="viewcode-block" id="wrap_game_data_v2">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.wrap_game_data_v2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">wrap_game_data_v2</span><span class="p">(</span><span class="n">config_block</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">batch_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">batch_id</span> <span class="o">=</span> <span class="n">batch_id</span> <span class="ow">or</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">config_block</span><span class="p">[</span><span class="s2">&quot;1NE&quot;</span><span class="p">],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">sample_game_fn</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;p1_cond&quot;</span><span class="p">],</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;p2_cond&quot;</span><span class="p">])</span>
+        <span class="n">payoffs_p1</span><span class="p">,</span> <span class="n">payoffs_p2</span> <span class="o">=</span> <span class="n">build_labelled_payoffs</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">)</span>
+
+        <span class="n">x_matrix</span> <span class="o">=</span> <span class="n">build_matrix_fn</span><span class="p">(</span><span class="n">payoffs_p1</span><span class="p">)</span>
+        <span class="n">y_matrix</span> <span class="o">=</span> <span class="n">build_matrix_fn</span><span class="p">(</span><span class="n">payoffs_p2</span><span class="p">)</span>
+        <span class="n">combined_matrix</span> <span class="o">=</span> <span class="n">build_combined_matrix_fn</span><span class="p">(</span><span class="n">x_matrix</span><span class="p">,</span> <span class="n">y_matrix</span><span class="p">)</span>
+        <span class="n">p1_labels</span><span class="p">,</span> <span class="n">p2_labels</span> <span class="o">=</span> <span class="n">extract_gold_labels_fn</span><span class="p">(</span><span class="n">payoffs_p1</span><span class="p">,</span> <span class="n">payoffs_p2</span><span class="p">)</span>
+        <span class="n">p1_actions</span><span class="p">,</span> <span class="n">p2_actions</span> <span class="o">=</span> <span class="n">build_action_fn</span><span class="p">(</span><span class="n">x_matrix</span><span class="p">,</span> <span class="n">y_matrix</span><span class="p">)</span>
+
+        <span class="n">game_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">batch_id</span><span class="si">}</span><span class="s2">-cfg</span><span class="si">{</span><span class="n">idx</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">full_game</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">game_id</span><span class="p">,</span>
+            <span class="s2">&quot;payoffs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="n">payoffs_p1</span><span class="p">,</span>
+                <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="n">payoffs_p2</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;matrix&quot;</span><span class="p">:</span> <span class="n">combined_matrix</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;golds&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;p1_matrix&quot;</span><span class="p">:</span> <span class="n">x_matrix</span><span class="p">,</span>
+                <span class="s2">&quot;p2_matrix&quot;</span><span class="p">:</span> <span class="n">y_matrix</span><span class="p">,</span>
+                <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="n">p1_labels</span><span class="p">,</span>
+                    <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="n">p2_labels</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="n">p1_actions</span><span class="p">,</span>
+                    <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="n">p2_actions</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;dominance&quot;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">][</span><span class="s2">&quot;dominance&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;nash&quot;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;nash_locations&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">variant_game</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">game_id</span><span class="p">,</span>
+            <span class="s2">&quot;matrix&quot;</span><span class="p">:</span> <span class="n">combined_matrix</span><span class="p">,</span>
+            <span class="s2">&quot;gold_ne&quot;</span><span class="p">:</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;nash_locations&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;full&quot;</span><span class="p">:</span> <span class="n">full_game</span><span class="p">,</span>
+            <span class="s2">&quot;variant&quot;</span><span class="p">:</span> <span class="n">variant_game</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+<div class="viewcode-block" id="sample_games">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.sample_games">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_games</span><span class="p">(</span><span class="n">config_block</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">n_batches</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Samples a list of 2x2 games according to the provided configuration.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config_block (dict): A configuration block defining payoff structure,</span>
+<span class="sd">            Nash location, and symbolic labeling.</span>
+<span class="sd">        n_batches (int, optional): Number of batches to sample. Defaults to 1.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[dict]: A list of dictionaries, each representing a sampled game.</span>
+<span class="sd">            Includes matrix data, action labels, and NE labels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">all_games</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">batch_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_batches</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">batch_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;IDx-</span><span class="si">{</span><span class="n">batch_num</span><span class="si">:</span><span class="s2">03d</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">batch_games</span> <span class="o">=</span> <span class="n">wrap_game_data_v2</span><span class="p">(</span><span class="n">config_block</span><span class="p">,</span> <span class="n">batch_id</span><span class="o">=</span><span class="n">batch_id</span><span class="p">)</span>
+        <span class="n">all_games</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">batch_games</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_games</span></div>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../games.html#llmgt.data.games.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Sample deterministic game data and optionally dump to JSON.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--n_batches&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of batches to sample and dump to JSON&quot;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">SEED</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+    <span class="n">sample1</span> <span class="o">=</span> <span class="n">sample_games</span><span class="p">(</span><span class="n">CONFIG_GAMES</span><span class="p">,</span> <span class="n">n_batches</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">n_batches</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+    <span class="n">sample2</span> <span class="o">=</span> <span class="n">sample_games</span><span class="p">(</span><span class="n">CONFIG_GAMES</span><span class="p">,</span> <span class="n">n_batches</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">n_batches</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">identical_samples</span> <span class="o">=</span> <span class="n">sample1</span> <span class="o">==</span> <span class="n">sample2</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Samples identical?&quot;</span><span class="p">,</span> <span class="n">identical_samples</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">identical_samples</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Differences detected!&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Verified: Sampling is deterministic.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">n_batches</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">full_games</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="s2">&quot;full&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">sample1</span><span class="p">]</span>
+        <span class="n">variant_games</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="s2">&quot;variant&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">sample1</span><span class="p">]</span>
+
+        <span class="n">output_dir</span> <span class="o">=</span> <span class="n">get_sampled_games_dir</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">full_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;sampled_games_</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">n_batches</span><span class="si">}</span><span class="s2">_batches_full.json&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">full_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">full_games</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">variant_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;sampled_games_</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">n_batches</span><span class="si">}</span><span class="s2">_batches_variant.json&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">variant_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">variant_games</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Full games dumped to: </span><span class="si">{</span><span class="n">full_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Variant games dumped to: </span><span class="si">{</span><span class="n">variant_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">sample1</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jona.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
