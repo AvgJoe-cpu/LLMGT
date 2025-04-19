@@ -23,9 +23,8 @@ or the [source file](src/llmgt/data/build_games.py).
 ## Model selection 
 
 We use base and instruction-tuned variants of the Qwen 2.5 family (1.5B, 3B, 7B, 14B), loading 7B and 14B in 4-bit using bitsandbytes. 
-All models are run via the transformers library with load_in_4bit=True and device auto-mapping. 
 We access them through Hugging Face at [`Qwen/Qwen-2_5-*`](https://huggingface.co/Qwen) [Qwen, 2024].
-
+Runtime: transformers with quantization via bitsandbytes [Dettmers et al., 2022].
 
 
 
@@ -51,3 +50,7 @@ See [Duan et al., 2024](#-references) (GTBench) and [Wang et al., 2024](#-refere
 - **Qwen (2024).**  
   *Qwen 2.5 Model Family*.  
   Hugging Face. [https://huggingface.co/Qwen](https://huggingface.co/Qwen)
+
+- **Dettmers et al. (2022).**  
+  *8-bit Optimizers via Block-wise Quantization.*  
+  arXiv:2208.07339. [arXiv](https://arxiv.org/abs/2208.07339)
