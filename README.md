@@ -24,6 +24,7 @@ or the [source file](src/llmgt/data/build_games.py).
 
 We use base and instruction-tuned variants of the Qwen 2.5 family (1.5B, 3B, 7B, 14B), loading 7B and 14B in 4-bit using bitsandbytes. 
 We access them through Hugging Face at [`Qwen/Qwen-2_5-*`](https://huggingface.co/Qwen) [Qwen, 2024].
+
 Runtime: transformers with quantization via bitsandbytes [Dettmers et al., 2022].
 
 
