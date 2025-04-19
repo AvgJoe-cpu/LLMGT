@@ -10,10 +10,13 @@ Structured evaluation of large language models in 2x2 competitive-simultaneous g
 
 --- 
 
-1. [Game-Theoretic Justification (PDF)](docs/game_theory_description.pdf)
+1. Dataset creation
 
 We generate 2×2 games from first principles with direct control over strategic features. 
 See [Duan et al., 2024](#-references) (GTBench) and [Wang et al., 2024](#-references) (TMGBench).
+For dataset creation, see the [build_games module documentation](https://avgjoe-cpu.github.io/LLMGT/build_games.html)  
+or the [source file](src/llmgt/data/build_games.py).
+For intuition, see [Game-Theoretic Justification (PDF)](docs/game_theory_description.pdf).
 
 
 
