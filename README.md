@@ -1,14 +1,9 @@
-# LLMGT
+# 🧠 LLMGT
 
-A toolkit for structured evaluation of large language models in 2x2 game-theoretic settings.
+[![Docs](https://img.shields.io/badge/docs-live-blue?style=flat-square)](https://avgjoe-cpu.github.io/LLMGT/)
+
+Structured evaluation of large language models in 2x2 game-theoretic settings.
+
 
 📚 **Documentation**  
-→ [View the full docs here](https://AvgJoe-cpu.github.io/LLMGT/index.html)
-
----
-
-This repository contains:
-
-- Sampling tools for 2x2 matrix games
-- Prompt formats for inference
-- Evaluation pipelines for LLM outputs
+→ [View the full site](https://avgjoe-cpu.github.io/LLMGT/)
