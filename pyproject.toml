@@ -1,0 +1,21 @@
+[project]
+name = "llmgt"
+version = "0.1.0"
+description = "LLM Game Tools"
+dependencies = [
+    "datasets",
+    "transformers",
+    "mako"
+]
+
+[project.scripts]
+games = "llmgt.data.games:main"
+
+prompts = "llmgt.inference.prompts.prompts:main"
+
+inference = "llmgt.inference.inference:main"
+inference-preview = "llmgt.inference:preview"
+inference-model = "llmgt.inference:model_entrypoint"
+
+[tool.setuptools.packages.find]
+where = ["src"]

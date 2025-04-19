@@ -1,0 +1,87 @@
+{
+  "t1_t02_s42": {
+    "id": "T1_ndet_t02_tok512_p09_s42",
+    "json_path": "prompts.json",
+    "seed": 42,
+    "generation_config": {
+      "do_sample": true,
+      "max_new_tokens": 512,
+      "temperature": 0.2,
+      "top_p": 0.9
+    },
+    "batch_size": 50,
+    "message_keys": [
+      "b_v1_0_shot",
+      "b_v2_0_shot",
+      "b_v3_0_shot"
+    ]
+  },
+  "t1_t04_s43": {
+    "id": "T1_ndet_t04_tok512_p09_s43",
+    "json_path": "prompts.json",
+    "seed": 43,
+    "generation_config": {
+      "do_sample": true,
+      "max_new_tokens": 512,
+      "temperature": 0.4,
+      "top_p": 0.9
+    },
+    "batch_size": 50,
+    "message_keys": [
+      "b_v1_0_shot",
+      "b_v2_0_shot",
+      "b_v3_0_shot"
+    ]
+  },
+  "t1_t06_s44": {
+    "id": "T1_ndet_t06_tok512_p09_s44",
+    "json_path": "prompts.json",
+    "seed": 44,
+    "generation_config": {
+      "do_sample": true,
+      "max_new_tokens": 512,
+      "temperature": 0.6,
+      "top_p": 0.9
+    },
+    "batch_size": 50,
+    "message_keys": [
+      "b_v1_0_shot",
+      "b_v2_0_shot",
+      "b_v3_0_shot"
+    ]
+  },
+  "t1_t08_s45": {
+    "id": "T1_ndet_t08_tok512_p09_s45",
+    "json_path": "prompts.json",
+    "seed": 45,
+    "generation_config": {
+      "do_sample": true,
+      "max_new_tokens": 512,
+      "temperature": 0.8,
+      "top_p": 0.9
+    },
+    "batch_size": 50,
+    "message_keys": [
+      "b_v1_0_shot",
+      "b_v2_0_shot",
+      "b_v3_0_shot"
+    ]
+  },
+  "t1_t10_s46": {
+    "id": "T1_ndet_t10_tok512_p09_s46",
+    "json_path": "prompts.json",
+    "seed": 46,
+    "generation_config": {
+      "do_sample": true,
+      "max_new_tokens": 512,
+      "temperature": 1.0,
+      "top_p": 0.9
+    },
+    "batch_size": 50,
+    "message_keys": [
+      "b_v1_0_shot",
+      "b_v2_0_shot",
+      "b_v3_0_shot"
+    ]
+  }
+}

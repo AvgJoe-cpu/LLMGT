@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>llmgt.data.build_games &mdash; llmgt 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            llmgt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Game Construction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../games.html">Games Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../build_games.html">Build Games Module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Inference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../inference.html">Inference Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">llmgt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">llmgt.data.build_games</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for llmgt.data.build_games</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<div class="viewcode-block" id="sample_payoffs">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.sample_payoffs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_payoffs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Samples a list of four random payoff values between 1 and 10.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[int]: A list of four integers representing 2x2 game payoffs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="sample_fn">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.sample_fn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_fn</span><span class="p">(</span><span class="n">condition</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Samples payoff tuples until a given condition is satisfied.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        condition (Callable): A function that takes four integers (payoffs)</span>
+<span class="sd">            and returns True if the sampled tuple meets the criteria.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[int, int, int, int]: A payoff tuple that satisfies the condition.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">sample_payoffs</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">condition</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sample_game_fn">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.sample_game_fn">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_game_fn</span><span class="p">(</span><span class="n">p1_cond</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">bool</span><span class="p">],</span>
+                   <span class="n">p2_cond</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Samples a payoff tuple for each player, satisfying their respective conditions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p1_cond: Condition applied to Player 1&#39;s payoff tuple.</span>
+<span class="sd">        p2_cond: Condition applied to Player 2&#39;s payoff tuple.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A pair of payoff tuples: (p1, p2).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">sample_fn</span><span class="p">(</span><span class="n">p1_cond</span><span class="p">)</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">sample_fn</span><span class="p">(</span><span class="n">p2_cond</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span></div>
+
+
+
+<div class="viewcode-block" id="cond_p1_dominant_top">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.cond_p1_dominant_top">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cond_p1_dominant_top</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if Player 1 strictly prefers the top row.</span>
+
+<span class="sd">    Requires: x1 &gt; x3 and x2 &gt; x4</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x1</span> <span class="o">&gt;</span> <span class="n">x3</span> <span class="ow">and</span> <span class="n">x2</span> <span class="o">&gt;</span> <span class="n">x4</span></div>
+
+
+
+<div class="viewcode-block" id="cond_p1_dominant_bot">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.cond_p1_dominant_bot">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cond_p1_dominant_bot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if Player 1 strictly prefers the bottom row.</span>
+
+<span class="sd">    Requires: x3 &gt; x1 and x4 &gt; x2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">x3</span> <span class="o">&gt;</span> <span class="n">x1</span> <span class="ow">and</span> <span class="n">x4</span> <span class="o">&gt;</span> <span class="n">x2</span></div>
+
+
+
+<div class="viewcode-block" id="cond_p2_dominant_left">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.cond_p2_dominant_left">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cond_p2_dominant_left</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">y4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if Player 2 strictly prefers the left column.</span>
+
+<span class="sd">    Requires: y1 &gt; y2 and y3 &gt; y4</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">y1</span> <span class="o">&gt;</span> <span class="n">y2</span> <span class="ow">and</span> <span class="n">y3</span> <span class="o">&gt;</span> <span class="n">y4</span></div>
+
+
+
+<div class="viewcode-block" id="cond_p2_dominant_right">
+<a class="viewcode-back" href="../../../build_games.html#llmgt.data.build_games.cond_p2_dominant_right">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cond_p2_dominant_right</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">y4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if Player 2 strictly prefers the right column.</span>
+
+<span class="sd">    Requires: y2 &gt; y1 and y4 &gt; y3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">y2</span> <span class="o">&gt;</span> <span class="n">y1</span> <span class="ow">and</span> <span class="n">y4</span> <span class="o">&gt;</span> <span class="n">y3</span></div>
+
+
+
+<span class="n">CONFIG_GAMES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;1NE&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;p1_cond&quot;</span><span class="p">:</span> <span class="n">cond_p1_dominant_top</span><span class="p">,</span>
+            <span class="s2">&quot;p2_cond&quot;</span><span class="p">:</span> <span class="n">cond_p2_dominant_left</span><span class="p">,</span>
+            <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;dominance&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;nash_locations&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;TL&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;p1_cond&quot;</span><span class="p">:</span> <span class="n">cond_p1_dominant_top</span><span class="p">,</span>
+            <span class="s2">&quot;p2_cond&quot;</span><span class="p">:</span> <span class="n">cond_p2_dominant_right</span><span class="p">,</span>
+            <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;dominance&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;nash_locations&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;TR&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;p1_cond&quot;</span><span class="p">:</span> <span class="n">cond_p1_dominant_bot</span><span class="p">,</span>
+            <span class="s2">&quot;p2_cond&quot;</span><span class="p">:</span> <span class="n">cond_p2_dominant_left</span><span class="p">,</span>
+            <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;dominance&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="s2">&quot;bot&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;nash_locations&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;BL&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;p1_cond&quot;</span><span class="p">:</span> <span class="n">cond_p1_dominant_bot</span><span class="p">,</span>
+            <span class="s2">&quot;p2_cond&quot;</span><span class="p">:</span> <span class="n">cond_p2_dominant_right</span><span class="p">,</span>
+            <span class="s2">&quot;structure&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;dominance&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;p1&quot;</span><span class="p">:</span> <span class="s2">&quot;bot&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;p2&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;nash_locations&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;BR&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jona.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
