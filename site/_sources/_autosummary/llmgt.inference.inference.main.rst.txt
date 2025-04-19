@@ -1,0 +1,6 @@
+﻿llmgt.inference.inference.main
+==============================
+
+.. currentmodule:: llmgt.inference.inference
+
+.. autofunction:: main
