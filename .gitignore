@@ -12,23 +12,11 @@ __pycache__/
 env/
 venv/
 
-# === PyCharm IDE ===
+# === IDE and Editor Settings ===
 .idea/
 
-# === Sphinx (build + autosummary cache) ===
-local_docs/build/
-local_docs/_autosummary/
-local_docs/_modules/
-local_docs/_sources/
-local_docs/objects.inv
-
-# === GitHub Pages Cleanup ===
-docs/*.js
-docs/*.html
-docs/*.inv
-docs/_modules/
-docs/_sources/
-docs/_autosummary/
+# === Sphinx Build Output (local build folder only) ===
+local_docs/
 
 # === Jupyter Notebook Checkpoints ===
 .ipynb_checkpoints/
