@@ -30,6 +30,7 @@ Runtime: transformers with quantization via bitsandbytes [Dettmers et al., 2022]
 ### Implementation
 
 Thin wrapper around Hugging Face pipeline.
+Model switching is handled via a set_model() function.
 
 
 
