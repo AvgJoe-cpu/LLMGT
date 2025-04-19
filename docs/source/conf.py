@@ -11,7 +11,6 @@ sys.path.insert(0, os.path.abspath('../../src'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'llmgt'
-copyright = '2025, Jona'
 author = 'Jona'
 release = '0.0.1'
 
@@ -24,7 +23,6 @@ extensions = [
     'sphinx.ext.viewcode',    # Adds links to your Python source code
     'sphinx.ext.autosummary', # Optional: creates summary tables
 ]
-
 autosummary_generate = True  # Enables autosummary tables to be built
 
 
