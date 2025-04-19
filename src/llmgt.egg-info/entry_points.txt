@@ -1,6 +1,0 @@
-[console_scripts]
-games = llmgt.data.games:main
-inference = llmgt.inference.inference:main
-inference-model = llmgt.inference:model_entrypoint
-inference-preview = llmgt.inference:preview
-prompts = llmgt.inference.prompts.prompts:main

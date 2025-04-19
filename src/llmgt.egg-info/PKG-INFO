@@ -1,7 +1,0 @@
-Metadata-Version: 2.4
-Name: llmgt
-Version: 0.1.0
-Summary: LLM Game Tools
-Requires-Dist: datasets
-Requires-Dist: transformers
-Requires-Dist: mako
