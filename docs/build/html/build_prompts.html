@@ -18,18 +18,27 @@
   body {
     --color-code-background: #f8f8f8;
   --color-code-foreground: black;
+  --color-brand-primary: #007acc;
+  --color-brand-content: #1a5f85;
+  --font-stack: Inter, system-ui, sans-serif;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #0df0ff;
+  --color-brand-content: #5bd6ff;
+  --font-stack: Inter, system-ui, sans-serif;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #0df0ff;
+  --color-brand-content: #5bd6ff;
+  --font-stack: Inter, system-ui, sans-serif;
   
       }
     }
@@ -178,7 +187,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -189,6 +198,10 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo-dark.png" alt="Dark Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">llmgt 0.0.1 documentation</span>
   
@@ -252,14 +265,19 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="prompt-helpers">
-<h1>Prompt Helpers<a class="headerlink" href="#prompt-helpers" title="Link to this heading"></a></h1>
+          <section id="module-llmgt.inference.prompts.build_prompts">
+<span id="prompt-helpers"></span><h1>Prompt Helpers<a class="headerlink" href="#module-llmgt.inference.prompts.build_prompts" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="llmgt.inference.prompts.build_prompts.build_prompts_factory">
+<span class="sig-prename descclassname"><span class="pre">llmgt.inference.prompts.build_prompts.</span></span><span class="sig-name descname"><span class="pre">build_prompts_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cot_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/llmgt/inference/prompts/build_prompts.html#build_prompts_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#llmgt.inference.prompts.build_prompts.build_prompts_factory" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
 
         </article>
@@ -305,15 +323,32 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Prompt Helpers</a><ul>
+<li><a class="reference internal" href="#llmgt.inference.prompts.build_prompts.build_prompts_factory"><code class="docutils literal notranslate"><span class="pre">build_prompts_factory()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
   </div>
-</div><script src="_static/jquery.js?v=5d32c60e"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=d45e8c67"></script>
+</div><script src="_static/documentation_options.js?v=f539c95a"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>

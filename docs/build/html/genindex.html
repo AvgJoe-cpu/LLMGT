@@ -16,18 +16,27 @@
   body {
     --color-code-background: #f8f8f8;
   --color-code-foreground: black;
+  --color-brand-primary: #007acc;
+  --color-brand-content: #1a5f85;
+  --font-stack: Inter, system-ui, sans-serif;
   
   }
   @media not print {
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #0df0ff;
+  --color-brand-content: #5bd6ff;
+  --font-stack: Inter, system-ui, sans-serif;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #0df0ff;
+  --color-brand-content: #5bd6ff;
+  --font-stack: Inter, system-ui, sans-serif;
   
       }
     }
@@ -187,6 +196,10 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/logo-light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/logo-dark.png" alt="Dark Logo"/>
+  </div>
   
   <span class="sidebar-brand-text">llmgt 0.0.1 documentation</span>
   
@@ -273,6 +286,8 @@
 </li>
         <li><a href="games.html#llmgt.data.games.build_matrix_fn">build_matrix_fn() (in module llmgt.data.games)</a>
 </li>
+        <li><a href="build_prompts.html#llmgt.inference.prompts.build_prompts.build_prompts_factory">build_prompts_factory() (in module llmgt.inference.prompts.build_prompts)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -323,8 +338,6 @@
           <li><a href="games.html#module-llmgt.data.games">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     llmgt.evaluation
 
@@ -332,11 +345,27 @@
           <li><a href="evaluation.html#module-llmgt.evaluation">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     llmgt.inference.inference
 
         <ul>
           <li><a href="inference_main.html#module-llmgt.inference.inference">module</a>
+</li>
+        </ul></li>
+        <li>
+    llmgt.inference.prompts.build_prompts
+
+        <ul>
+          <li><a href="build_prompts.html#module-llmgt.inference.prompts.build_prompts">module</a>
+</li>
+        </ul></li>
+        <li>
+    llmgt.inference.prompts.prompts
+
+        <ul>
+          <li><a href="prompts.html#module-llmgt.inference.prompts.prompts">module</a>
 </li>
         </ul></li>
     </ul></td>
@@ -352,6 +381,8 @@
         <ul>
           <li><a href="inference_main.html#llmgt.inference.inference.main">(in module llmgt.inference.inference)</a>
 </li>
+          <li><a href="prompts.html#llmgt.inference.prompts.prompts.main">(in module llmgt.inference.prompts.prompts)</a>
+</li>
         </ul></li>
         <li>
     module
@@ -364,6 +395,10 @@
           <li><a href="evaluation.html#module-llmgt.evaluation">llmgt.evaluation</a>
 </li>
           <li><a href="inference_main.html#module-llmgt.inference.inference">llmgt.inference.inference</a>
+</li>
+          <li><a href="build_prompts.html#module-llmgt.inference.prompts.build_prompts">llmgt.inference.prompts.build_prompts</a>
+</li>
+          <li><a href="prompts.html#module-llmgt.inference.prompts.prompts">llmgt.inference.prompts.prompts</a>
 </li>
         </ul></li>
     </ul></td>
@@ -450,9 +485,7 @@
       
     </aside>
   </div>
-</div><script src="_static/jquery.js?v=5d32c60e"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=d45e8c67"></script>
+</div><script src="_static/documentation_options.js?v=f539c95a"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
