@@ -18,7 +18,8 @@ Two formats are supported: NE-only and fully labeled.
 For dataset construction, see the [build_games module documentation](build_games/)  
 or the [source file](src/llmgt/data/build_games.py).
 
-For theoretical context, see the [Game-Theoretic Justification (PDF)](games_intuition.pdf).
+For theoretical context, see the [Game-Theoretic Justification (PDF)](https://avgjoe-cpu.github.io/LLMGT/games_intuition.pdf).
+
 
 
 
