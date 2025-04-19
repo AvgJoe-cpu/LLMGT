@@ -13,7 +13,7 @@ Structured evaluation of large language models in 2x2 competitive-simultaneous g
 ## Dataset creation
 
 We construct a dataset of 2×2 games with labeled structure: NE, dominance profiles, and payoff matrices derived from constraint-based sampling.
-We support two formats: NE-only and fully labeled.
+Two formats are supported: NE-only and fully labeled.
 
 For dataset construction, see the [build_games module documentation](https://avgjoe-cpu.github.io/LLMGT/build_games.html)  
 or the [source file](src/llmgt/data/build_games.py).
