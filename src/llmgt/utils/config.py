@@ -3,12 +3,12 @@ from pathlib import Path
 from llmgt.utils.paths import get_experimental_config_path
 
 
-def load_experiment_config(name: str = "experiments_t1.json") -> dict[str, dict]:
+def load_experiment_config(name: str = "experiments_det.json") -> dict[str, dict]:
     """
     Loads and validates a dictionary of experiment configs from CONFIG/experimental_config/.
 
     Parameters:
-        name (str): The filename of the config (default: experiments_t1.json)
+        name (str): The filename of the config (default: experiments_det.json)
 
     Returns:
         dict[str, dict]: A dictionary mapping experiment names to configs.

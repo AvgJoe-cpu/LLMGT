@@ -15,7 +15,7 @@ def get_prompts_config(name: str) -> Path:
     name = Path(name).stem
     return get_project_root() / "CONFIG" / "prompts_config" / f"{name}.json"
 
-def get_experimental_config_path(name: str = "experiments_t1.json") -> Path:
+def get_experimental_config_path(name: str = "experiments_det.json") -> Path:
     return get_config_dir() / "experimental_config" / name
 
 

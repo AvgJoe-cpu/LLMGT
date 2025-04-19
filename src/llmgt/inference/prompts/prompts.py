@@ -9,7 +9,7 @@ from llmgt.utils.paths import *
 def main():
     parser = argparse.ArgumentParser(description="Build and export prompt-structured data.")
     parser.add_argument("file", type=str, nargs="?", default="sampled_games_10_batches_variant.json")
-    parser.add_argument("--config", type=str, default="prompts_config.json")
+    parser.add_argument("--config", type=str, default="prompts_one_shot.json")
     parser.add_argument("--style", type=str, default="DA", help="Prompt style subfolder (e.g. DA or COT)")
 
     args = parser.parse_args()
