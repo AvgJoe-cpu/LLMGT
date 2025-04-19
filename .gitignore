@@ -15,8 +15,20 @@ venv/
 # === PyCharm IDE ===
 .idea/
 
-# === Sphinx Build Output ===
-docs/build/
+# === Sphinx (build + autosummary cache) ===
+local_docs/build/
+local_docs/_autosummary/
+local_docs/_modules/
+local_docs/_sources/
+local_docs/objects.inv
+
+# === GitHub Pages Cleanup ===
+docs/*.js
+docs/*.html
+docs/*.inv
+docs/_modules/
+docs/_sources/
+docs/_autosummary/
 
 # === Jupyter Notebook Checkpoints ===
 .ipynb_checkpoints/
@@ -24,9 +36,3 @@ docs/build/
 # === System Files ===
 .DS_Store
 Thumbs.db
-
-# Prevent publishing accidentally copied HTML
-/docs/*.html
-/docs/_modules/
-/docs/_sources/
-/docs/objects.inv
