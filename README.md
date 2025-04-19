@@ -12,14 +12,15 @@ Structured evaluation of large language models in 2x2 competitive-simultaneous g
 
 ## Dataset creation
 
-We generate 2×2 games from first principles, with direct control over strategic features.  
-See [Duan et al., 2024](#-references) (GTBench) and [Wang et al., 2024](#-references) (TMGBench) for benchmark-style LLM evaluations.
+We construct a dataset of 2×2 games with labeled structure: NE, dominance profiles, and payoff matrices derived from constraint-based sampling.
+We support two formats: NE-only and fully labeled.
 
 For dataset construction, see the [build_games module documentation](https://avgjoe-cpu.github.io/LLMGT/build_games.html)  
 or the [source file](src/llmgt/data/build_games.py).
 
-For theoretical grounding, see the [Game-Theoretic Justification (PDF)](docs/game_theory_description.pdf).
+For intuition, see the [Game-Theoretic Justification (PDF)](docs/game_theory_description.pdf).
 
+See [Duan et al., 2024](#-references) (GTBench) and [Wang et al., 2024](#-references) (TMGBench) for benchmark-style LLM evaluations.
 
 
 
