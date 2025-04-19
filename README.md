@@ -18,7 +18,8 @@ Two formats are supported: NE-only and fully labeled.
 For dataset construction, see the [build_games module documentation](https://avgjoe-cpu.github.io/LLMGT/build_games.html)  
 or the [source file](src/llmgt/data/build_games.py).
 
-For intuition, see the [Game-Theoretic Justification (PDF)](https://avgjoe-cpu.github.io/LLMGT/game_theory_description.pdf).
+[Game-Theoretic Justification (PDF)](https://avgjoe-cpu.github.io/LLMGT/game_theory_description.pdf).
+
 
 
 See [Duan et al., 2024](#-references) (GTBench) and [Wang et al., 2024](#-references) (TMGBench) for benchmark-style LLM evaluations.
