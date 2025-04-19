@@ -8,6 +8,7 @@ Structured evaluation of large language models in 2x2 competitive-simultaneous g
 📚 **Documentation**  
 → [View the full site](https://avgjoe-cpu.github.io/LLMGT/)
 
+--- 
 
 1. [Game-Theoretic Justification (PDF)](docs/game_theory_description.pdf)
 
