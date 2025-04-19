@@ -1,4 +1,5 @@
 site_name: llmgt
+
 nav:
   - Home: index.md
   - Games:
