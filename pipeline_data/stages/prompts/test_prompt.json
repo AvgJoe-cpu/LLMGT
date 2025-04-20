@@ -1,0 +1,82 @@
+[
+  {
+    "id": "IDx-001-cfg01",
+    "matrix": [
+      [
+        [
+          9,
+          4
+        ],
+        [
+          10,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          7
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    ],
+    "gold_ne": [
+      "TL"
+    ],
+    "b_v1_0_shot": [
+      {
+        "content": "An arbitrary two-player (2\u00d72) normal-form game is given. Each cell shows a pair of payoffs [x, y]:\n- x = payoff for Player 1 (row player, p1).\n- y = payoff for Player 2 (column player, p2).\n\nPlayers:\n p1 (row player) chooses between: Top (T) or Bottom (B).\n p2 (column player) chooses between: Left (L) or Right (R).\n\nThe game matrix (called `combined_matrix`) is:\n[\n  [[x1, y1], [x2, y2]],\n  [[x3, y3], [x4, y4]]\n]\n\nHere:\n- Row 1 (Top) has two cells: (T, L) with payoffs [x1, y1], and (T, R) with [x2, y2].\n- Row 2 (Bottom) has two cells: (B, L) with [x3, y3], and (B, R) with [x4, y4].\n\n---\n\n\nA pure-strategy NE is a pair (one action per player) where neither player gains by unilaterally switching actions. To check if a strategy (e.g. T/L) is a NE, verify that:\n1. Given p2 plays L, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n2. Given p2 plays R, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n3. Given p1 plays T, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n4. Given p1 plays B, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n\nAlternatively, identify strictly dominating rows/columns:\n- For p1: Compare Top row payoffs (x1,x2) vs. Bottom row (x3,x4). If one row is strictly higher in both columns, it dominates.\n- For p2: Compare Left column payoffs (y1,y3) vs. Right column (y2,y4). If one column is strictly higher in both rows, it dominates.\n\nThe Nash equilibrium is the combination of the chosen best responses by p1 and p2.\n\nYour job: Determine the pure\u2010strategy NE(s) in the provided `combined_matrix`: [[[9, 4], [10, 2]], [[1, 7], [9, 5]]].\n\n---\n\n\nReturn your answer as a list of strings in the format:\n`[\"XY\"]`, where:\n- X \u2208 {\"T\", \"B\"} (Player 1\u2019s choice: Top or Bottom)\n- Y \u2208 {\"L\", \"R\"} (Player 2\u2019s choice: Left or Right)\n\nExamples:\n- If the equilibrium is Player 1 plays Top and Player 2 plays Left \u2192 `[\"TL\"]`\n- If there is no pure-strategy NE \u2192 `[]`\n\nDo not explain your answer. Only return the final result.\n\n---\n\nExample:\n```json\n{\n  \"NE\": [\"insert answer here.\"]\n}",
+        "role": "user"
+      }
+    ],
+    "b_v1_1_shot": [
+      {
+        "content": "An arbitrary two-player (2\u00d72) normal-form game is given. Each cell shows a pair of payoffs [x, y]:\n- x = payoff for Player 1 (row player, p1).\n- y = payoff for Player 2 (column player, p2).\n\nPlayers:\n p1 (row player) chooses between: Top (T) or Bottom (B).\n p2 (column player) chooses between: Left (L) or Right (R).\n\nThe game matrix (called `combined_matrix`) is:\n[\n  [[x1, y1], [x2, y2]],\n  [[x3, y3], [x4, y4]]\n]\n\nHere:\n- Row 1 (Top) has two cells: (T, L) with payoffs [x1, y1], and (T, R) with [x2, y2].\n- Row 2 (Bottom) has two cells: (B, L) with [x3, y3], and (B, R) with [x4, y4].\n\n---\n\n\nA pure-strategy NE is a pair (one action per player) where neither player gains by unilaterally switching actions. To check if a strategy (e.g. T/L) is a NE, verify that:\n1. Given p2 plays L, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n2. Given p2 plays R, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n3. Given p1 plays T, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n4. Given p1 plays B, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n\nAlternatively, identify strictly dominating rows/columns:\n- For p1: Compare Top row payoffs (x1,x2) vs. Bottom row (x3,x4). If one row is strictly higher in both columns, it dominates.\n- For p2: Compare Left column payoffs (y1,y3) vs. Right column (y2,y4). If one column is strictly higher in both rows, it dominates.\n\nThe Nash equilibrium is the combination of the chosen best responses by p1 and p2.\n\nYour job: Determine the pure\u2010strategy NE(s) in the provided `combined_matrix`: [[[9, 4], [10, 2]], [[1, 7], [9, 5]]].\n\n---\n\n\nReturn your answer as a list of strings in the format:\n`[\"XY\"]`, where:\n- X \u2208 {\"T\", \"B\"} (Player 1\u2019s choice: Top or Bottom)\n- Y \u2208 {\"L\", \"R\"} (Player 2\u2019s choice: Left or Right)\n\nExamples:\n- If the equilibrium is Player 1 plays Top and Player 2 plays Left \u2192 `[\"TL\"]`\n- If there is no pure-strategy NE \u2192 `[]`\n\nDo not explain your answer. Only return the final result.\n\n---\n\nExample:\n```json\n{\n  \"NE\": [\"insert answer here.\"]\n}",
+        "role": "user"
+      }
+    ]
+  },
+  {
+    "id": "IDx-001-cfg02",
+    "matrix": [
+      [
+        [
+          9,
+          4
+        ],
+        [
+          10,
+          2
+        ]
+      ],
+      [
+        [
+          1,
+          7
+        ],
+        [
+          9,
+          5
+        ]
+      ]
+    ],
+    "gold_ne": [
+      "TL"
+    ],
+    "b_v1_0_shot": [
+      {
+        "content": "An arbitrary two-player (2\u00d72) normal-form game is given. Each cell shows a pair of payoffs [x, y]:\n- x = payoff for Player 1 (row player, p1).\n- y = payoff for Player 2 (column player, p2).\n\nPlayers:\n p1 (row player) chooses between: Top (T) or Bottom (B).\n p2 (column player) chooses between: Left (L) or Right (R).\n\nThe game matrix (called `combined_matrix`) is:\n[\n  [[x1, y1], [x2, y2]],\n  [[x3, y3], [x4, y4]]\n]\n\nHere:\n- Row 1 (Top) has two cells: (T, L) with payoffs [x1, y1], and (T, R) with [x2, y2].\n- Row 2 (Bottom) has two cells: (B, L) with [x3, y3], and (B, R) with [x4, y4].\n\n---\n\n\nA pure-strategy NE is a pair (one action per player) where neither player gains by unilaterally switching actions. To check if a strategy (e.g. T/L) is a NE, verify that:\n1. Given p2 plays L, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n2. Given p2 plays R, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n3. Given p1 plays T, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n4. Given p1 plays B, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n\nAlternatively, identify strictly dominating rows/columns:\n- For p1: Compare Top row payoffs (x1,x2) vs. Bottom row (x3,x4). If one row is strictly higher in both columns, it dominates.\n- For p2: Compare Left column payoffs (y1,y3) vs. Right column (y2,y4). If one column is strictly higher in both rows, it dominates.\n\nThe Nash equilibrium is the combination of the chosen best responses by p1 and p2.\n\nYour job: Determine the pure\u2010strategy NE(s) in the provided `combined_matrix`: [[[9, 4], [10, 2]], [[1, 7], [9, 5]]].\n\n---\n\n\nReturn your answer as a list of strings in the format:\n`[\"XY\"]`, where:\n- X \u2208 {\"T\", \"B\"} (Player 1\u2019s choice: Top or Bottom)\n- Y \u2208 {\"L\", \"R\"} (Player 2\u2019s choice: Left or Right)\n\nExamples:\n- If the equilibrium is Player 1 plays Top and Player 2 plays Left \u2192 `[\"TL\"]`\n- If there is no pure-strategy NE \u2192 `[]`\n\nDo not explain your answer. Only return the final result.\n\n---\n\nExample:\n```json\n{\n  \"NE\": [\"insert answer here.\"]\n}",
+        "role": "user"
+      }
+    ],
+    "b_v1_1_shot": [
+      {
+        "content": "An arbitrary two-player (2\u00d72) normal-form game is given. Each cell shows a pair of payoffs [x, y]:\n- x = payoff for Player 1 (row player, p1).\n- y = payoff for Player 2 (column player, p2).\n\nPlayers:\n p1 (row player) chooses between: Top (T) or Bottom (B).\n p2 (column player) chooses between: Left (L) or Right (R).\n\nThe game matrix (called `combined_matrix`) is:\n[\n  [[x1, y1], [x2, y2]],\n  [[x3, y3], [x4, y4]]\n]\n\nHere:\n- Row 1 (Top) has two cells: (T, L) with payoffs [x1, y1], and (T, R) with [x2, y2].\n- Row 2 (Bottom) has two cells: (B, L) with [x3, y3], and (B, R) with [x4, y4].\n\n---\n\n\nA pure-strategy NE is a pair (one action per player) where neither player gains by unilaterally switching actions. To check if a strategy (e.g. T/L) is a NE, verify that:\n1. Given p2 plays L, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n2. Given p2 plays R, p1 wouldn\u2019t switch if T\u2019s payoff > B\u2019s payoff (for that column).\n3. Given p1 plays T, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n4. Given p1 plays B, p2 wouldn\u2019t switch if L\u2019s payoff > R\u2019s payoff (for that row).\n\nAlternatively, identify strictly dominating rows/columns:\n- For p1: Compare Top row payoffs (x1,x2) vs. Bottom row (x3,x4). If one row is strictly higher in both columns, it dominates.\n- For p2: Compare Left column payoffs (y1,y3) vs. Right column (y2,y4). If one column is strictly higher in both rows, it dominates.\n\nThe Nash equilibrium is the combination of the chosen best responses by p1 and p2.\n\nYour job: Determine the pure\u2010strategy NE(s) in the provided `combined_matrix`: [[[9, 4], [10, 2]], [[1, 7], [9, 5]]].\n\n---\n\n\nReturn your answer as a list of strings in the format:\n`[\"XY\"]`, where:\n- X \u2208 {\"T\", \"B\"} (Player 1\u2019s choice: Top or Bottom)\n- Y \u2208 {\"L\", \"R\"} (Player 2\u2019s choice: Left or Right)\n\nExamples:\n- If the equilibrium is Player 1 plays Top and Player 2 plays Left \u2192 `[\"TL\"]`\n- If there is no pure-strategy NE \u2192 `[]`\n\nDo not explain your answer. Only return the final result.\n\n---\n\nExample:\n```json\n{\n  \"NE\": [\"insert answer here.\"]\n}",
+        "role": "user"
+      }
+    ]
+  }
+]

@@ -1,13 +1,24 @@
-from llmgt.prompts.build_prompts import build_prompts_factory
-from llmgt.utils import get_project_root, get_data_path, get_stage_path
-
-from datasets import Dataset
 import json
 from pathlib import Path
 from typing import Callable
 
+from datasets import Dataset
+
+from llmgt.prompts.build_prompts import build_prompts_factory
+from llmgt.utils import get_data_path, get_stage_path
+
 
 def load_and_transform_dataset(input_path: Path, prompt_fn: Callable) -> Dataset:
+    """
+    Load a dataset from JSON and apply a transformation function.
+
+    Args:
+        input_path: Path to the input JSON file.
+        prompt_fn: Function that transforms each example.
+
+    Returns:
+        A HuggingFace Dataset with transformed examples.
+    """
     ds = Dataset.from_json(str(input_path))
     return ds.map(prompt_fn)
 
@@ -18,6 +29,18 @@ def load_prompt_config_and_dirs(
     cot_style: str = "COT",
     config_dir: str = "prompt_config"
 ) -> tuple[dict, Path, Path]:
+    """
+    Load a prompt config and resolve template and CoT directories.
+
+    Args:
+        config_name: Name of the config file (e.g. "prompts.json").
+        style: User template subfolder name.
+        cot_style: CoT subfolder name (default "COT").
+        config_dir: Base config folder name (default "prompt_config").
+
+    Returns:
+        A tuple of (config dict, template path, cot path).
+    """
 
     config_path = get_data_path(config_dir, config_name)
     if not config_path.exists():

@@ -1,0 +1,18 @@
+{
+  "exp_task_one": {
+    "id": "task_one_trial",
+    "seed": 42,
+    "generation_config": {
+      "do_sample": true,
+      "max_new_tokens": 512,
+      "temperature": 0.9,
+      "top_k": 80,
+      "top_p": 0.9
+    },
+    "batch_size": 50,
+    "message_keys": [
+      "b_v1_0_shot",
+      "b_v1_1_shot"
+    ]
+  }
+}

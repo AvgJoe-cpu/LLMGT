@@ -17,7 +17,7 @@
  * that is passed as a parameter, allowing the list of fields
  * and other builder parameters to be customised.
  *
- * All documents _must_ be added within the passed prompt_config function.
+ * All documents _must_ be added within the passed config function.
  *
  * @example
  * var idx = lunr(function () {

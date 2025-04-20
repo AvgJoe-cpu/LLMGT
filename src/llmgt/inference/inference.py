@@ -1,79 +1,64 @@
-from transformers import set_seed, GenerationConfig
-from datasets import Dataset, load_from_disk
-import os
+from transformers import set_seed
+import json
 
 from llmgt.inference.models import get_pipe_fn
-from llmgt.utils.config import load_experiment_config
-from llmgt.utils.paths import *
-from pprint import pprint
+from llmgt.utils.paths import get_stage_path, ensure_parent_dir, get_data_path
+from llmgt.utils.config import load_dataset, load_generation_config, save_dataset_json
 
 
-def preview():
-    """Pretty-print loaded experiment configs."""
-    configs = load_experiment_config()
-    print("\nLoaded Experiment Configs:\n")
-    pprint(configs, indent=2, width=100)
+def load_and_prepare_experiments(name="experiments.json") -> dict:
+    path = get_data_path("experimental_config", name)
+    configs = json.load(open(path, encoding="utf-8"))
+
+    for exp_key, config in configs.items():
+        set_seed(config["seed"])
+        config["id"] = config.get("id", exp_key)
+        config["gen_config"] = load_generation_config(config)
+
+    return configs
 
 
-def build_config(config_dict: dict) -> dict:
-    base_cache = get_cache_dir()
-    base_results = get_predictions_dir()
-    config = enrich_paths(config_dict, base_cache, base_results)
-    config["gen_config"] = GenerationConfig(**config["generation_config"])
-    return config
-
-def build_experiment(config: dict) -> dict:
-    """Loads the dataset and returns the full runtime context."""
-    set_seed(config["seed"])
-    resolved_path = resolve_prompt_file(config["json_path"])
-    ds = Dataset.from_json(str(resolved_path))
-
-    return {
-        "ds": ds,
-        **config
-    }
-
-
-def run_experiment(ds_, config, pipe, force=False):
+def run_inference_for_key(ds, pipe, config, msg_key):
+    """
+    Run inference for a single message key and save the output to a JSON file.
+    Output is stored under: pipeline_data/stages/predictions/<exp_id>_<msg_key>.json
+    """
+    exp_id = config["id"]
+    output_key = msg_key
+    output_path = get_stage_path("predictions", f"{config['id']}/{msg_key}.json")
+    batch_size = config["batch_size"]
     gen_config = config["gen_config"]
 
+    def run_fn(batch):
+        outputs = pipe(batch[msg_key], generation_config=gen_config)
+        return {output_key: outputs}
+
+    ds_out = ds.map(run_fn, batched=True, batch_size=batch_size)
+
+    ensure_parent_dir(output_path)
+    fields_to_keep = ["id", "matrix", "gold_ne", output_key]
+    ds_out = ds_out.select_columns([k for k in fields_to_keep if k in ds_out.column_names])
+
+    save_dataset_json(ds_out, output_path)
+    return ds_out
+
+
+def run_experiment(base_ds, config, pipe):
+    """
+    Run inference across all message keys, writing output files per key.
+    """
     for msg_key in config["message_keys"]:
-        output_key = get_output_key(msg_key)
-        path_info = config["paths"][msg_key]
-
-        if not force and os.path.exists(path_info["cache"]):
-            ds_ = load_from_disk(path_info["cache"])
-            continue
-
-        def run_fn(batch):
-            return {output_key: pipe(batch[msg_key], generation_config=gen_config)}
-
-        ds_ = ds_.map(
-            run_fn,
-            batched=True,
-            batch_size=config["batch_size"],
-            cache_file_name=str(path_info["arrow"])
-        )
-
-        ds_.save_to_disk(path_info["cache"])
-
-        os.makedirs(os.path.dirname(path_info["json"]), exist_ok=True)
-
-        fields_to_keep = ["id", "matrix", "gold_ne", output_key]
-        ds_out = ds_.remove_columns([col for col in ds_.column_names if col not in fields_to_keep])
-        ds_out.to_json(path_info["json"], orient="records", lines=True)
-
-    return ds_
+        run_inference_for_key(base_ds, pipe, config, msg_key)
 
 
 def main():
-    all_configs = load_experiment_config()
+    configs = load_and_prepare_experiments()
+    config = configs["exp_task_one"]
     pipe = get_pipe_fn()
 
-    for name, cfg in all_configs.items():
-        enriched_cfg = build_config(cfg)
-        experiment = build_experiment(enriched_cfg)
-        run_experiment(experiment["ds"], experiment, pipe=pipe)
+    ds = load_dataset(get_stage_path("prompts", "test_prompt.json"))
+
+    run_experiment(ds, config, pipe)
 
 
 if __name__ == "__main__":

@@ -5,3 +5,21 @@ nav:
   - Games:
       - Build Games: game_build.md
       - Game Sampling: game_sample.md
+  - Prompts:
+      - Prompt Utilities: prompts.md
+  - Utils:
+      - Path Resolution: paths.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_signature: true
+            show_signature_annotations: true
+            show_source: false
+            show_root_heading: false
+            show_root_full_path: false
+            separate_signature: true
