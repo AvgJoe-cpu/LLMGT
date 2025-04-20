@@ -7,8 +7,7 @@ from collections import Counter
 import json
 
 
-def run_parser(exp_id: str, msg_key: str):
-    input_path = get_stage_path("predictions", f"{exp_id}/{msg_key}.json")
+def run_parser(input_path: Path, msg_key: str):
     ds = load_dataset(input_path)
 
     parser = build_parser_fn(msg_key)
@@ -19,7 +18,7 @@ def run_parser(exp_id: str, msg_key: str):
     counts = Counter(status_labels)
     summary = summarize_quality(counts, total=ds.num_rows)
 
-    if not summary["gate_passed"]:
+    if not summary["passed"]:
         print(json.dumps(summary, indent=2))
         return
 
@@ -28,14 +27,21 @@ def run_parser(exp_id: str, msg_key: str):
     return df
 
 
+def run_parser_for_key(exp_id: str, msg_key: str):
+    path = get_stage_path("predictions", f"{exp_id}/{msg_key}.json")
+    return run_parser(path, msg_key)
+
+
 def run_parsing_multiple(exp_id: str, message_keys: list[str]):
     for key in message_keys:
-        run_parser(exp_id, key)
+        run_parser_for_key(exp_id, key)
+
 
 
 def main():
     exp_id = "task_one_trial"
     message_keys = ["b_v1_0_shot"]
+    path = get_stage_path("predictions", f"{exp_id}/{message_keys}.json")
     run_parsing_multiple(exp_id, message_keys)
 if __name__ == "__main__":
     main()
