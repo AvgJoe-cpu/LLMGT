@@ -1,0 +1,2 @@
+{"id":"IDx-001-cfg01","matrix":[[[9,4],[10,2]],[[1,7],[9,5]]],"gold_ne":["TL"],"b_v1_0_shot":[{"generated_text":"```json\n{\n  \"NE\": [\"TB\"]\n}\n```"}],"parsed":"{\"NE\":[\"TB\"]}","parsing_success":true}
+{"id":"IDx-001-cfg02","matrix":[[[9,4],[10,2]],[[1,7],[9,5]]],"gold_ne":["TL"],"b_v1_0_shot":[{"generated_text":"```json\n{\n  \"NE\": [\"TT\"]\n}\n```"}],"parsed":"{\"NE\":[\"TT\"]}","parsing_success":true}
