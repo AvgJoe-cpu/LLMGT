@@ -23,7 +23,6 @@ def run_inference_for_key(ds, pipe, config, msg_key):
     Run inference for a single message key and save the output to a JSON file.
     Output is stored under: pipeline_data/stages/predictions/<exp_id>_<msg_key>.json
     """
-    exp_id = config["id"]
     output_key = msg_key
     output_path = get_stage_path("predictions", f"{config['id']}/{msg_key}.json")
     batch_size = config["batch_size"]

@@ -17,6 +17,7 @@ def load_generation_config(cfg: dict) -> GenerationConfig:
     """
     return GenerationConfig(**cfg["generation_config"])
 
+
 def save_dataset_json(ds, path: Path):
     """
     Save a JSON dataset into HuggingFace Dataset.
